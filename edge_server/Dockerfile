@@ -1,11 +1,14 @@
-FROM ubuntu:22.04
-LABEL org.opencontainers.image.authors="jamieduncan@google.com"
-LABEL org.opencontainers.image.source=https://github.com/jduncan-rva/container-fundamentals
-LABEL org.opencontainers.image.description="Containter Fundamentals - Static Website Image"
+
+# Use a slim base image for Nginx
+FROM nginx:stable-alpine3.19-slim
+LABEL org.opencontainers.image.authors="Sadiqa M"
+LABEL server_type="edge_server"
 LABEL org.opencontainers.image.licenses=APACHE2
-RUN apt update
-RUN apt install nginx -y
+LABEL org.opencontainers.image.description="Containter Fundamentals - Static Website Image"
+
 COPY config/nginx.conf /etc/nginx/
 COPY web_content/ /var/www
+
 EXPOSE 80
+
 CMD ["nginx", "-g", "daemon off;"]
